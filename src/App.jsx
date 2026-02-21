@@ -17,6 +17,7 @@ import {
   processImpactIndex,
   determineDeveloperClass
 } from './utils/dataProcessor';
+import AuraGenerator from './components/AuraGenerator';
 
 const COLORS = ['#8b5cf6', '#06b6d4', '#f43f5e', '#10b981', '#f59e0b', '#3b82f6', '#ec4899', '#84cc16'];
 
@@ -319,6 +320,10 @@ function App() {
                   </a>
                 ))}
               </div>
+            </motion.div>
+            {/* Developer Aura Component */}
+            <motion.div variants={itemVariants} style={{ minHeight: '400px' }}>
+              <AuraGenerator data={data} />
             </motion.div>
           </div>
 
