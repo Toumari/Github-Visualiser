@@ -132,3 +132,40 @@ button {
   height: 24px;
   animation: spin 1s linear infinite;
 }
+
+/* Typography and Responsiveness */
+.main-title {
+  font-size: 3.5rem;
+}
+
+.main-title.compact {
+  font-size: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 24px 16px;
+  }
+
+  .main-title {
+    font-size: 2.5rem;
+  }
+
+  .main-title.compact {
+    font-size: 2rem;
+  }
+
+  .glass-panel {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .main-title.compact {
+    font-size: 1.5rem;
+  }
+}

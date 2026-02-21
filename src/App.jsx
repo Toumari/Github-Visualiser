@@ -81,7 +81,7 @@ function App() {
           animate={data ? { scale: 0.8, marginBottom: '-10px' } : { scale: 1 }}
         >
           <Github size={data ? 40 : 56} style={{ margin: '0 auto', color: 'var(--accent-primary)', transition: 'all 0.5s ease' }} />
-          <h1 style={{ fontSize: data ? '2.5rem' : '3.5rem', margin: '16px 0 8px', transition: 'all 0.5s ease' }}>
+          <h1 className={`main-title ${data ? 'compact' : ''}`} style={{ margin: '16px 0 8px', transition: 'all 0.5s ease' }}>
             GitHub <span className="text-gradient">Visualizer</span>
           </h1>
           {!data && (
@@ -97,7 +97,7 @@ function App() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2 }}
         onSubmit={handleSearch}
-        style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginBottom: '40px' }}
+        style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '40px' }}
       >
         <div style={{ position: 'relative', width: '100%', maxWidth: '400px' }}>
           <Search size={20} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} />
@@ -167,7 +167,7 @@ function App() {
           </motion.div>
 
           {/* Quick Stats Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '20px' }}>
             {[
               { label: 'Public Repos', value: data.profile.public_repos, icon: <Github size={24} color="#8b5cf6" /> },
               { label: 'Total Stars', value: data.impact.totalStars, icon: <Star size={24} color="#fbbf24" /> },
@@ -184,7 +184,7 @@ function App() {
             ))}
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))', gap: '24px' }}>
             {/* Language Galaxy */}
             <motion.div variants={itemVariants} className="glass glass-panel" style={{ minHeight: '400px', display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
@@ -274,7 +274,7 @@ function App() {
             </motion.div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))', gap: '24px' }}>
             {/* Top Repositories */}
             <motion.div variants={itemVariants} className="glass glass-panel">
               <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.2rem', margin: '0 0 24px 0' }}>

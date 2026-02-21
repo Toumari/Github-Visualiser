@@ -116,8 +116,8 @@ const AuraGenerator = ({ data }) => {
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%)', pointerEvents: 'none' }} />
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px' }}>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', fontStyle: 'italic', margin: 0, flex: 1 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px', flexWrap: 'wrap', gap: '16px' }}>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', fontStyle: 'italic', margin: 0, flex: '1 1 200px' }}>
                     Colors derived from {data.languages.length > 0 ? data.languages.slice(0, 3).map(l => l.name).join(', ') : 'your code'}. Intensity tied to {data.impact.totalStars} stars.
                 </p>
                 <button
