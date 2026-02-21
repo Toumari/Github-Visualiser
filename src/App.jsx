@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Github, Search, Activity, Star, Code, GitFork,
-  MapPin, Link as LinkIcon, Users, Calendar, Award
+  MapPin, Link as LinkIcon, Users, Calendar, Award, Image
 } from 'lucide-react';
 import {
   PieChart, Pie, Cell, ResponsiveContainer, Tooltip,
@@ -18,6 +18,8 @@ import {
   determineDeveloperClass
 } from './utils/dataProcessor';
 import AuraGenerator from './components/AuraGenerator';
+import ShareCard from './components/ShareCard';
+import html2canvas from 'html2canvas';
 
 const COLORS = ['#8b5cf6', '#06b6d4', '#f43f5e', '#10b981', '#f59e0b', '#3b82f6', '#ec4899', '#84cc16'];
 
@@ -26,6 +28,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+  const [isCapturing, setIsCapturing] = useState(false);
+  const shareCardRef = React.useRef(null);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -54,6 +58,32 @@ function App() {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGenerateCard = async () => {
+    if (!shareCardRef.current || isCapturing) return;
+    setIsCapturing(true);
+
+    try {
+      const canvas = await html2canvas(shareCardRef.current, {
+        scale: 2, // Higher resolution image
+        useCORS: true, // Needed to load external GitHub avatars securely
+        backgroundColor: '#05050a',
+        width: 1200,
+        height: 630
+      });
+
+      const imageInfo = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = `${data.profile.login}_github_card.png`;
+      link.href = imageInfo;
+      link.click();
+    } catch (err) {
+      console.error('Failed to generate image:', err);
+      alert('Failed to generate trading card image. Ensure external images allowed CORS.');
+    } finally {
+      setIsCapturing(false);
     }
   };
 
@@ -143,13 +173,22 @@ function App() {
               style={{ width: '120px', height: '120px', borderRadius: '50%', border: '4px solid var(--glass-border)' }}
             />
             <div style={{ flex: 1, minWidth: '250px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
                 <div>
                   <h2 style={{ fontSize: '2rem', margin: 0 }}>{data.profile.name || data.profile.login}</h2>
                   <a href={data.profile.html_url} target="_blank" rel="noreferrer" style={{ color: 'var(--accent-secondary)', textDecoration: 'none', fontSize: '1.1rem' }}>@{data.profile.login}</a>
                 </div>
-                <div style={{ background: 'var(--accent-gradient)', padding: '6px 16px', borderRadius: '20px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
-                  <Award size={18} /> {data.devClass}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <button
+                    onClick={handleGenerateCard}
+                    disabled={isCapturing}
+                    style={{ background: 'transparent', border: '1px solid var(--accent-primary)', color: 'var(--accent-primary)', padding: '6px 16px', borderRadius: '20px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px', cursor: isCapturing ? 'wait' : 'pointer' }}
+                  >
+                    {isCapturing ? <div className="loader" style={{ width: '18px', height: '18px', borderWidth: '2px' }} /> : <Image size={18} />} Share Card
+                  </button>
+                  <div style={{ background: 'var(--accent-gradient)', padding: '6px 16px', borderRadius: '20px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Award size={18} /> {data.devClass}
+                  </div>
                 </div>
               </div>
 
@@ -327,6 +366,7 @@ function App() {
             </motion.div>
           </div>
 
+          <ShareCard ref={shareCardRef} data={data} />
         </motion.div>
       )}
     </div>
