@@ -2,7 +2,7 @@
 
 A stunning, premium web application built with React and Vite that allows users to instantly generate beautiful, dynamic, and unique visualizations of their public GitHub data.
 
-![GitHub Visualizer Demo Screenshot](https://raw.githubusercontent.com/Toumari/Github-Visualiser/master/public/vite.svg) {/* Replace with a real screenshot of your app once hosted! */}
+![GitHub Visualizer Demo Screenshot](https://raw.githubusercontent.com/Toumari/Github-Visualiser/master/public/screenshot.png)
 
 ## ✨ Features
 
